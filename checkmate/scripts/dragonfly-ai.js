@@ -2,7 +2,7 @@
 
 (function() {
 
-Dagaz.AI.NOISE_FACTOR     = 0;
+Dagaz.AI.NOISE_FACTOR     = 3;
 Dagaz.Model.WIDTH         = 7;
 Dagaz.Model.HEIGHT        = 7;
 
@@ -44,59 +44,53 @@ var materialTable = [0, 800, 3350, 3450, 5000, 600000];
 var inHandTable   = [0, 900, 4350, 4450, 10000, 600000];
 
 Dagaz.AI.pieceAdj = [
-[   0,    0,   0,   0,   0,   0,    0,    0, // pieceEmpty
-    0,    0,   0,   0,   0,   0,    0,    0, 
-    0,    0,   0,   0,   0,   0,    0,    0, 
-    0,    0,   0,   0,   0,   0,    0,    0, 
-    0,    0,   0,   0,   0,   0,    0,    0, 
-    0,    0,   0,   0,   0,   0,    0,    0, 
-    0,    0,   0,   0,   0,   0,    0,    0, 
-    0,    0,   0,   0,   0,   0,    0,    0 
+[   0,    0,   0,   0,   0,    0,    0, // pieceEmpty
+    0,    0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,    0,    0 
 ], 
-[   0,    0,   0,   0,   0,   0,    0,    0, // piecePawn
-  -25,  105, 135, 270, 270, 135,  105,  -25,
-  -80,    0,  30, 176, 176,  30,    0,  -80,
-  -85,   -5,  25, 175, 175,  25,   -5,  -85,
-  -90,  -10,  20, 125, 125,  20,  -10,  -90,
-  -95,  -15,  15,  75,  75,  15,  -15,  -95, 
- -100,  -20,  10,  70,  70,  10,  -20, -100, 
-    0,    0,   0,   0,   0,   0,    0,    0
+[   0,    0,   0,   0,   0,    0,    0, // piecePawn
+  -25,  105, 135, 270, 135,  105,  -25,
+  -80,    0,  30, 176,  30,    0,  -80,
+  -85,   -5,  25, 175,  25,   -5,  -85,
+  -90,  -10,  20, 125,  20,  -10,  -90,
+ -100,  -20,  10,  70,  10,  -20, -100, 
+    0,    0,   0,   0,   0,    0,    0
 ],
-[-200, -100, -50, -50, -50, -50, -100, -200, // pieceKnight
- -100,    0,   0,   0,   0,   0,    0, -100,
-  -50,    0,  60,  60,  60,  60,    0,  -50,
-  -50,    0,  30,  60,  60,  30,    0,  -50,
-  -50,    0,  30,  60,  60,  30,    0,  -50,
-  -50,    0,  30,  30,  30,  30,    0,  -50,
- -100,    0,   0,   0,   0,   0,    0,  -100,
- -200,  -50, -25, -25, -25, -25,  -50,  -200
+[-200, -100, -50, -50, -50, -100, -200, // pieceKnight
+ -100,    0,   0,   0,   0,    0, -100,
+  -50,    0,  60,  60,  60,    0,  -50,
+  -50,    0,  30,  60,  30,    0,  -50,
+  -50,    0,  30,  30,  30,    0,  -50,
+ -100,    0,   0,   0,   0,    0,  -100,
+ -200,  -50, -25, -25, -25,  -50,  -200
 ],
-[ -50,  -50,  -25,-10, -10, -25,  -50,   -50, // pieceBishop
-  -50,  -25,  -10,  0,   0, -10,  -25,   -50,
-  -25,  -10,    0, 25,  25,   0,  -10,   -25,
-  -10,    0,   25, 40,  40,  25,    0,   -10,
-  -10,    0,   25, 40,  40,  25,    0,   -10,
-  -25,  -10,    0, 25,  25,   0,  -10,   -25,
-  -50,  -25,  -10,  0,   0, -10,  -25,   -50,
-  -50,  -50,  -25,-10, -10, -25,  -50,   -50
+[ -50,  -50,  -25,-10, -25,  -50,   -50, // pieceBishop
+  -50,  -25,  -10,  0, -10,  -25,   -50,
+  -25,  -10,    0, 25,   0,  -10,   -25,
+  -10,    0,   25, 40,  25,    0,   -10,
+  -25,  -10,    0, 25,   0,  -10,   -25,
+  -50,  -25,  -10,  0, -10,  -25,   -50,
+  -50,  -50,  -25,-10, -25,  -50,   -50
 ],
-[ -60,  -30,  -10, 20,  20, -10,  -30,   -60, // pieceRook
-   40,   70,   90,120, 120,  90,   70,    40,
-  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
-  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
-  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
-  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
-  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
-  -60,  -30,  -10, 20,  20, -10,  -30,   -60
+[ -60,  -30,  -10, 20, -10,  -30,   -60, // pieceRook
+   40,   70,   90,120,  90,   70,    40,
+  -60,  -30,  -10, 20, -10,  -30,   -60,
+  -60,  -30,  -10, 20, -10,  -30,   -60,
+  -60,  -30,  -10, 20, -10,  -30,   -60,
+  -60,  -30,  -10, 20, -10,  -30,   -60,
+  -60,  -30,  -10, 20, -10,  -30,   -60
 ],
-[  50,  150, -25, -125, -125, -25, 150,  50, // pieceKing
-   50,  150, -25, -125, -125, -25, 150,  50,
-   50,  150, -25, -125, -125, -25, 150,  50,
-   50,  150, -25, -125, -125, -25, 150,  50,
-   50,  150, -25, -125, -125, -25, 150,  50,
-   50,  150, -25, -125, -125, -25, 150,  50,
-   50,  150, -25, -125, -125, -25, 150,  50,
-  150,  250,  75,  -25,  -25,  75, 250, 150
+[  50,  150, -25, -125,  -25, 150,  50, // pieceKing
+   50,  150, -25, -125,  -25, 150,  50,
+   50,  150, -25, -125,  -25, 150,  50,
+   50,  150, -25, -125,  -25, 150,  50,
+   50,  150, -25, -125,  -25, 150,  50,
+   50,  150, -25, -125,  -25, 150,  50,
+  150,  250,  75,  -25,   75, 250, 150
 ]];
 
 var pieceSquareAdj = new Array(15);
@@ -683,6 +677,7 @@ Dagaz.AI.MakeMove = function(move) {
     Dagaz.AI.g_hashKeyHigh ^= Dagaz.AI.g_zobristBlackHigh;
 
     if (flags & moveflagPromotion) {
+        // TODO:
         var newPiece = piece & (~Dagaz.AI.TYPE_MASK);
         if (flags & moveflagPromoteKnight) 
             newPiece |= pieceKnight;
@@ -735,6 +730,7 @@ Dagaz.AI.MakeMove = function(move) {
 
     // Castle or promotion, slow check
     Dagaz.AI.g_inCheck = false;
+    // DEBUG:
     var kingPos = Dagaz.AI.g_pieceList[(pieceKing | Dagaz.AI.g_toMove) << Dagaz.AI.COUNTER_SIZE];
     if (kingPos != 0) {
         Dagaz.AI.g_inCheck = IsSquareAttackable(kingPos, Dagaz.AI.colorWhite - Dagaz.AI.g_toMove);
@@ -770,6 +766,7 @@ Dagaz.AI.UnmakeMove = function(move) {
     var piece = Dagaz.AI.g_board[to];
 
     if (flags & moveflagPromotion) {
+        // TODO:
         piece = (Dagaz.AI.g_board[to] & (~Dagaz.AI.TYPE_MASK)) | piecePawn;
         Dagaz.AI.g_board[from] = piece;
 
@@ -1075,7 +1072,195 @@ Dagaz.AI.GenerateDropMoves = function(moveStack, force) {
 }
 
 Dagaz.AI.See = function(move) {
+//  DEBUG:
     return false;
+
+    var from = move & 0xFF;
+    var to = (move >> 8) & 0xFF;
+
+    var fromPiece = Dagaz.AI.g_board[from];
+
+    var fromValue = g_seeValues[fromPiece & Dagaz.AI.PIECE_MASK];
+    var toValue = g_seeValues[Dagaz.AI.g_board[to] & Dagaz.AI.PIECE_MASK];
+
+    if (fromValue <= toValue) {
+        return true;
+    }
+
+    if (move >> 16) {
+        // Castles, promotion, ep are always good
+        return true;
+    }
+
+    var us = (fromPiece & Dagaz.AI.colorWhite) ? Dagaz.AI.colorWhite : 0;
+    var them = Dagaz.AI.colorWhite - us;
+
+    // Pawn attacks 
+    // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
+    var inc = (fromPiece & Dagaz.AI.colorWhite) ? -16 : 16; // Note: this is capture direction from to, so reversed from normal move direction
+    if (((Dagaz.AI.g_board[to + inc + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
+        ((Dagaz.AI.g_board[to + inc - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them))) {
+        return false;
+    }
+
+    var themAttacks = new Array();
+
+    // Knight attacks 
+    // If any opponent knights can capture back, and the deficit we have to make up is greater than the knights value, 
+    // it's not worth it.  We can capture on this square again, and the opponent doesn't have to capture back. 
+    var captureDeficit = fromValue - toValue;
+    SeeAddKnightAttacks(to, them, themAttacks);
+    if (themAttacks.length != 0 && captureDeficit > g_seeValues[pieceKnight]) {
+        return false;
+    }
+
+    // Slider attacks
+    Dagaz.AI.g_board[from] = 0;
+    for (var pieceType = pieceBishop; pieceType <= pieceRook; pieceType++) {
+        if (SeeAddSliderAttacks(to, them, themAttacks, pieceType)) {
+            if (captureDeficit > g_seeValues[pieceType]) {
+                Dagaz.AI.g_board[from] = fromPiece;
+                return false;
+            }
+        }
+    }
+
+    // Pawn defenses 
+    // At this point, we are sure we are making a "losing" capture.  The opponent can not capture back with a 
+    // pawn.  They cannot capture back with a minor/major and stand pat either.  So, if we can capture with 
+    // a pawn, it's got to be a winning or equal capture. 
+    if (((Dagaz.AI.g_board[to - inc + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
+        ((Dagaz.AI.g_board[to - inc - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us))) {
+        Dagaz.AI.g_board[from] = fromPiece;
+        return true;
+    }
+
+    // King attacks
+    SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
+
+    // Our attacks
+    var usAttacks = new Array();
+    SeeAddKnightAttacks(to, us, usAttacks);
+    for (var pieceType = pieceBishop; pieceType <= pieceKing; pieceType++) {
+        SeeAddSliderAttacks(to, us, usAttacks, pieceType);
+    }
+
+    Dagaz.AI.g_board[from] = fromPiece;
+
+    // We are currently winning the amount of material of the captured piece, time to see if the opponent 
+    // can get it back somehow.  We assume the opponent can capture our current piece in this score, which 
+    // simplifies the later code considerably. 
+    var seeValue = toValue - fromValue;
+
+    for (; ; ) {
+        var capturingPieceValue = 1000;
+        var capturingPieceIndex = -1;
+
+        // Find the least valuable piece of the opponent that can attack the square
+        for (var i = 0; i < themAttacks.length; i++) {
+            if (themAttacks[i] != 0) {
+                var pieceValue = g_seeValues[Dagaz.AI.g_board[themAttacks[i]] & Dagaz.AI.TYPE_MASK];
+                if (pieceValue < capturingPieceValue) {
+                    capturingPieceValue = pieceValue;
+                    capturingPieceIndex = i;
+                }
+            }
+        }
+
+        if (capturingPieceIndex == -1) {
+            // Opponent can't capture back, we win
+            return true;
+        }
+
+        // Now, if seeValue < 0, the opponent is winning.  If even after we take their piece, 
+        // we can't bring it back to 0, then we have lost this battle. 
+        seeValue += capturingPieceValue;
+        if (seeValue < 0) {
+            return false;
+        }
+
+        var capturingPieceSquare = themAttacks[capturingPieceIndex];
+        themAttacks[capturingPieceIndex] = 0;
+
+        // Add any x-ray attackers
+        SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
+
+        // Our turn to capture
+        capturingPieceValue = 1000;
+        capturingPieceIndex = -1;
+
+        // Find our least valuable piece that can attack the square
+        for (var i = 0; i < usAttacks.length; i++) {
+            if (usAttacks[i] != 0) {
+                var pieceValue = g_seeValues[Dagaz.AI.g_board[usAttacks[i]] & Dagaz.AI.TYPE_MASK];
+                if (pieceValue < capturingPieceValue) {
+                    capturingPieceValue = pieceValue;
+                    capturingPieceIndex = i;
+                }
+            }
+        }
+
+        if (capturingPieceIndex == -1) {
+            // We can't capture back, we lose :( 
+            return false;
+        }
+
+        // Assume our opponent can capture us back, and if we are still winning, we can stand-pat 
+        // here, and assume we've won. 
+        seeValue -= capturingPieceValue;
+        if (seeValue >= 0) {
+            return true;
+        }
+
+        capturingPieceSquare = usAttacks[capturingPieceIndex];
+        usAttacks[capturingPieceIndex] = 0;
+
+        // Add any x-ray attackers
+        SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
+    }
+}
+
+function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
+    var index = square - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
+    var delta = -g_vectorDelta[index].delta;
+    if (delta == 0) return;
+    square += delta;
+    while (Dagaz.AI.g_board[square] == 0) {
+        square += delta;
+    }
+    if ((Dagaz.AI.g_board[square] & Dagaz.AI.PLAYERS_MASK) && IsSquareOnPieceLine(target, square)) {
+        if ((Dagaz.AI.g_board[square] & Dagaz.AI.colorWhite) == us) {
+            usAttacks[usAttacks.length] = square;
+        } else {
+            themAttacks[themAttacks.length] = square;
+        }
+    }
+}
+
+// target = attacking square, us = color of knights to look for, attacks = array to add squares to
+function SeeAddKnightAttacks(target, us, attacks) {
+    var pieceIdx = (us | pieceKnight) << Dagaz.AI.COUNTER_SIZE;
+    var attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    while (attackerSq != 0) {
+        if (IsSquareOnPieceLine(target, attackerSq)) {
+            attacks[attacks.length] = attackerSq;
+        }
+        attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    }
+}
+
+function SeeAddSliderAttacks(target, us, attacks, pieceType) {
+    var pieceIdx = (us | pieceType) << Dagaz.AI.COUNTER_SIZE;
+    var attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    var hit = false;
+    while (attackerSq != 0) {
+        if (IsSquareAttackableFrom(target, attackerSq)) {
+            attacks[attacks.length] = attackerSq;
+            hit = true;
+        }
+        attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    }
+    return hit;
 }
 
 })();

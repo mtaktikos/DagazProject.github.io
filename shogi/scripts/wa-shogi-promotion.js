@@ -46,7 +46,6 @@ Dagaz.Model.CheckInvariants = function(board) {
           var pos    = move.actions[0][0][0];
           var target = move.actions[0][1][0];
           if ((design.inZone(1, board.player, pos) || design.inZone(1, board.player, target)) && design.inZone(0, board.player, pos)) {
-              var isForced = false;
               var piece = board.getPiece(pos);
               if ((piece !== null) && !_.isUndefined(promote[+piece.type])) {
                    var promoted = piece.promote(promote[+piece.type]);

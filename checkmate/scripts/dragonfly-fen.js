@@ -85,7 +85,6 @@ var createPiece = function(design, c) {
   if (c == 'b') return Dagaz.Model.createPiece(design.getPieceType("Bishop"), 2);
   if (c == 'K') return Dagaz.Model.createPiece(design.getPieceType("King"), 1);
   if (c == 'k') return Dagaz.Model.createPiece(design.getPieceType("King"), 2);
-  if (c == 'm') return Dagaz.Model.createPiece(design.getPieceType("Bomb"), 3);
   return null;
 }
 
@@ -143,7 +142,7 @@ Dagaz.Model.setup = function(board, init) {
                    board.setPiece(toReserve(pos), piece);
                    pos++;
                }
-               if (pos >= (Dagaz.AI.RESERVE_SIZE * 2) * Dagaz.Model.HEIGHT) break;
+               if (pos >= Dagaz.AI.RESERVE_SIZE * 2 * Dagaz.Model.HEIGHT) break;
            }
       }
       setup = chunks[3];
