@@ -3,6 +3,11 @@ Dagaz.Controller.persistense = "setup";
 Dagaz.Model.WIDTH  = 9;
 Dagaz.Model.HEIGHT = 9;
 
+Dagaz.Model.CROSS  = [22, 38, 42, 58];
+Dagaz.Model.NEIGB  = [31, 39, 41, 49];
+Dagaz.Model.CENTR  = 40;
+Dagaz.Model.RESTR  = [40];
+
 Dagaz.AI.pieceAdj = [
 [   0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty
     0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -33,9 +38,19 @@ Dagaz.AI.pieceAdj = [
     2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
     2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
     2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000
+],
+[   0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceCaptured
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0
 ]];
 
-Dagaz.AI.RESTRICTED = [0x68];
+Dagaz.AI.RESTRICTED = [0x66];
 
 ZRF = {
     JUMP:          0,
@@ -185,7 +200,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
-
     design.addPiece("Man", 0);
     design.addMove(0, 0, [3, 3], 0);
     design.addMove(0, 0, [2, 2], 0);
@@ -197,6 +211,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 1, [2], 0);
     design.addMove(1, 1, [0], 0);
     design.addMove(1, 1, [1], 0);
+
+    design.addPiece("CapturedKing", 2);
 
     design.setup("Black", "Man", 45);
     design.setup("Black", "Man", 36);
@@ -229,9 +245,10 @@ Dagaz.Model.BuildDesign = function(design) {
 
 Dagaz.View.configure = function(view) {
     view.defBoard("Board");
-    view.defPiece("WhiteMan", "White Man");
-    view.defPiece("BlackMan", "Black Man");
+    view.defPieceSvg("WhiteMan", "White Man", 49, 49);
+    view.defPieceSvg("BlackMan", "Black Man", 49, 49);
     view.defPiece("WhiteKing", "White King");
+    view.defPiece("WhiteKing", "White CapturedKing");
  
     view.defPosition("a9", 21, 23, 69, 69);
     view.defPosition("b9", 90, 23, 69, 69);

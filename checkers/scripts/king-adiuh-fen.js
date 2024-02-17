@@ -90,8 +90,8 @@ var createPiece = function(design, c) {
   if (c == 'p') return Dagaz.Model.createPiece(design.getPieceType("BlackMan"), 2);
   if (c == 'K') return Dagaz.Model.createPiece(design.getPieceType("WhiteKing"), 1);
   if (c == 'k') return Dagaz.Model.createPiece(design.getPieceType("BlackKing"), 2);
-  if (c == 'G') return Dagaz.Model.createPiece(design.getPieceType("King"), 1);
-  if (c == 'g') return Dagaz.Model.createPiece(design.getPieceType("King"), 2);
+  if (c == 'G') return Dagaz.Model.createPiece(design.getPieceType("Queen"), 1);
+  if (c == 'g') return Dagaz.Model.createPiece(design.getPieceType("Queen"), 2);
   return null;
 }
 
@@ -101,8 +101,9 @@ var getTail = function(setup, pos, piece) {
        if (setup[i] == ']') break;
        if (setup[i] != '[') {
            if (i == pos + 1) break;
-           var t = setup[i].toLowerCase() == 'k' ? 2 : 0;
+           var t = setup[i].toLowerCase() == 'k' ? 2 : 0;           
            if ((setup[i] == 'p') || (setup[i] == 'k')) t++;
+           if (setup[i].toLowerCase() == 'g') t = 4;
            s = s + t;
        }
   }

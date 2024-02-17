@@ -2,6 +2,25 @@ Dagaz.Controller.persistense = "setup";
 
 (function() {
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  _.each(move.actions, function(a) {
+      if (a[0] === null) return;
+      if (a[1] === null) return;
+      if (a[0][0] == a[1][0]) return;
+      if (r != "") {
+          r = r + "-";
+      }
+      if (a[0] != null) {
+          r = r + Dagaz.Model.posToString(a[0][0]);
+      }
+      if (a[1] !== null) {
+          r = r + Dagaz.Model.posToString(a[1][0]);
+      }
+  });
+  return r;
+}
+
 var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
@@ -74,6 +93,8 @@ var createPiece = function(design, c) {
   if (c == 'p') return Dagaz.Model.createPiece(design.getPieceType("Man"), 2);
   if (c == 'K') return Dagaz.Model.createPiece(design.getPieceType("King"), 1);
   if (c == 'k') return Dagaz.Model.createPiece(design.getPieceType("King"), 2);
+  if (c == 'C') return Dagaz.Model.createPiece(design.getPieceType("CapturedKing"), 1);
+  if (c == 'c') return Dagaz.Model.createPiece(design.getPieceType("CapturedKing"), 2);
   return null;
 }
 
@@ -107,8 +128,9 @@ Dagaz.Model.setup = function(board, init) {
 
 var getPieceNotation = function(design, piece) {
   var r = 'X';
-  if (piece.type == design.getPieceType("Man"))  r = 'P';
-  if (piece.type == design.getPieceType("King")) r = 'K';
+  if (piece.type == design.getPieceType("Man"))          r = 'P';
+  if (piece.type == design.getPieceType("King"))         r = 'K';
+  if (piece.type == design.getPieceType("CapturedKing")) r = 'C';
   if (piece.player > 1) {
       return r.toLowerCase();
   }

@@ -36,7 +36,6 @@ var isAttacked = function(design, board, player, pos, dir, isKing) {
       }
   }
   if (piece.player == player) return false;
-  if (piece.type > 3) return false;
   p = design.navigate(player, p, dir);
   if (p === null) return false;
   return board.getPiece(p) === null;
@@ -77,17 +76,17 @@ Dagaz.View.showPiece = function(view, ctx, frame, pos, piece, model, x, y) {
           if (inversed) {
               f = !f;
           }
-          if (t < 2) {
+          if (t < 4) {
               if (f) {
                   p = view.piece["White WhiteMan"];
               } else {
                   p = view.piece["Black BlackMan"];
               }
           } else {
-              if (f) {
-                  p = view.piece["White WhiteKing"];
+              if (model.player > 1) {
+                  p = view.piece["White Queen"];
               } else {
-                  p = view.piece["Black BlackKing"];
+                  p = view.piece["Black Queen"];
               }
           }
           if (p !== null) {
@@ -189,7 +188,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                     last = action[0][0];
                 }
             } else {
-                nove.failed = true;
+                move.failed = true;
             }
         });
         _.each(captured, function(pos) {
@@ -227,7 +226,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (!isAttacked(design, b, piece.player, to, dir, isKing)) return;
           f = true;
       });
-      if (f && (piece.type < 4)) {
+      if (f) {
           move.goTo(board.turn);
           move.setValue(0, to);
           move.setValue(1, from);
@@ -237,7 +236,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       } else {
           move.setValue(0, null);
           move.setValue(1, null);
-          if ((piece.type > 1) && !design.inZone(piece.player == 1 ? 0 : 1, board.player, to)) {
+          if ((piece.type > 1) && (piece.type < 4) && !design.inZone(piece.player == 1 ? 0 : 1, board.player, to)) {
               _.each(move.actions, function(a) {
                   if (a[0] === null) return;
                   if (a[1] === null) return;
