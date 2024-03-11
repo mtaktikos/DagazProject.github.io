@@ -3,6 +3,65 @@
   add
 ))
 
+(define jump-1 (
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define jump-2 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define jump-3 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define horse-1-1 (
+  $1 (verify (not-piece? Rock)) (verify enemy?) capture
+  $1 (verify empty?) 
+  add
+))
+
+(define horse-1-2 (
+  $1 (verify (not-piece? Rock)) (verify enemy?) capture
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify empty?) 
+  add
+))
+
+(define horse-2-1 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) capture
+  $1 (verify empty?) 
+  add
+))
+
+(define elephant-2 (
+  $1 (verify empty?) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define dragon-2 (
+  $1 $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define dragon-3 (
+  $1 $1 $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define dragon-4 (
+  $1 $1 $1 $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
 (game
    (title "Nine-Tile Cyvasse")
 
@@ -16,9 +75,6 @@
         (dimensions
             ("A/B/C/D/E/F/G/H/I/J/K/L" (50 0))
             ("1/2/3/4/5/6/7/8/9" (-25 50))
-        )
-        (directions (se 1 1) (w -1 0) (sw 0 1)
-                    (nw -1 -1) (e 1 0) (ne 0 -1)
         )
       )
       (grid
@@ -47,10 +103,10 @@
       )
       (symmetry White (nw sw) (sw nw) (ne se) (se ne) (w e) (e w))
       (kill-positions
-         c9 d9 b8 c8 a7 b7 a6 i1 j1
-         k1 l1 j2 k2 l2 k3 l3 l4 b9
-         C9 D9 B8 C8 A7 B7 A6 I1 J1
-         K1 L1 J2 K2 L2 K3 L3 L4 B9
+         i1 j1 k1 l1 a6 j2 k2 l2 a7 b7
+         k3 l3 a8 b8 c8 l4 a9 b9 c9 d9
+         I1 J1 K1 L1 A6 J2 K2 L2 A7 B7
+         K3 L3 A8 B8 C8 L4 A9 B9 C9 D9
       )
       (zone (name home) (players Black)
          (positions 
@@ -82,6 +138,7 @@
              Black "images/cyvasse/bking.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
       )
    )
    (piece
@@ -90,6 +147,7 @@
              Black "images/cyvasse/brabble.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
       )
    )
    (piece
@@ -97,7 +155,8 @@
       (image White "images/cyvasse/wspears.bmp"
              Black "images/cyvasse/bspears.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (step nw) (step ne)
+         (jump-1 nw) (jump-1 ne)
       )
    )
    (piece
@@ -105,7 +164,12 @@
       (image White "images/cyvasse/wlighth.bmp"
              Black "images/cyvasse/blighth.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
+         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se) (jump-3 w) (jump-3 e)
+         (horse-1-1 nw) (horse-1-1 ne) (horse-1-1 sw) (horse-1-1 se) (horse-1-1 w) (horse-1-1 e)
+         (horse-1-2 nw) (horse-1-2 ne) (horse-1-2 sw) (horse-1-2 se) (horse-1-2 w) (horse-1-2 e)
+         (horse-2-1 nw) (horse-2-1 ne) (horse-2-1 sw) (horse-2-1 se) (horse-2-1 w) (horse-2-1 e)
       )
    )
    (piece
@@ -113,7 +177,9 @@
       (image White "images/cyvasse/wheavyh.bmp"
              Black "images/cyvasse/bheavyh.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
+         (horse-1-1 nw) (horse-1-1 ne) (horse-1-1 sw) (horse-1-1 se) (horse-1-1 w) (horse-1-1 e)
       )
    )
    (piece
@@ -122,15 +188,14 @@
              Black "images/cyvasse/beleph.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (elephant-2 nw) (elephant-2 ne) (elephant-2 sw) (elephant-2 se) (elephant-2 w) (elephant-2 e)
       )
    )
    (piece
       (name Crossbow)
       (image White "images/cyvasse/wcrossb.bmp"
              Black "images/cyvasse/bcrossb.bmp")
-      (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
-      )
    )
    (piece
       (name Trebuchet)
@@ -138,6 +203,9 @@
              Black "images/cyvasse/btrebuch.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (dragon-2 nw) (dragon-2 ne) (dragon-2 sw) (dragon-2 se) (dragon-2 w) (dragon-2 e)
+         (dragon-3 nw) (dragon-3 ne) (dragon-3 sw) (dragon-3 se) (dragon-3 w) (dragon-3 e)
+         (dragon-4 nw) (dragon-4 ne) (dragon-4 sw) (dragon-4 se) (dragon-4 w) (dragon-4 e)
       )
    )
    (piece
@@ -145,7 +213,10 @@
       (image White "images/cyvasse/wdragon.bmp"
              Black "images/cyvasse/bdragon.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (dragon-2 nw) (dragon-2 ne) (dragon-2 sw) (dragon-2 se) (dragon-2 w) (dragon-2 e)
+         (dragon-3 nw) (dragon-3 ne) (dragon-3 sw) (dragon-3 se) (dragon-3 w) (dragon-3 e)
+         (dragon-4 nw) (dragon-4 ne) (dragon-4 sw) (dragon-4 se) (dragon-4 w) (dragon-4 e)
       )
    )
    (piece
@@ -162,6 +233,11 @@
       (name Water)
       (image White "images/cyvasse/water.bmp"
              Black "images/cyvasse/water.bmp")
+   )
+   (piece
+      (name Empty)
+      (image White "images/cyvasse/i.bmp"
+             Black "images/cyvasse/i.bmp")
    )
 
    (board-setup
