@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "session";
+Dagaz.Controller.persistense = "setup";
 
 ZRF = {
     JUMP:          0,
@@ -23,9 +23,7 @@ ZRF = {
 
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
-    design.checkVersion("smart-moves", "to");
     design.checkVersion("pass-partial", "false");
-    design.checkVersion("detect-loops", "true");
 
     design.addDirection("s"); // 0
     design.addDirection("e"); // 1
