@@ -1,0 +1,78 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>RPnS</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/rpns/board.png">
+<img id="RedPaperKing" style="display:none" src="images/rpns/rpfm.png">
+<img id="BluePaperKing" style="display:none" src="images/rpns/bpfm.png">
+<img id="RedPaperKingDamaged" style="display:none" src="images/rpns/rpsm.png">
+<img id="BluePaperKingDamaged" style="display:none" src="images/rpns/bpsm.png">
+<img id="RedRockKing" style="display:none" src="images/rpns/rrfm.png">
+<img id="BlueRockKing" style="display:none" src="images/rpns/brfm.png">
+<img id="RedRockKingDamaged" style="display:none" src="images/rpns/rrsm.png">
+<img id="BlueRockKingDamaged" style="display:none" src="images/rpns/brsm.png">
+<img id="RedScissorsKing" style="display:none" src="images/rpns/rsfm.png">
+<img id="BlueScissorsKing" style="display:none" src="images/rpns/bsfm.png">
+<img id="RedScissorsKingDamaged" style="display:none" src="images/rpns/rssm.png">
+<img id="BlueScissorsKingDamaged" style="display:none" src="images/rpns/bssm.png">
+<img id="RedPaperMan" style="display:none" src="images/rpns/rpfn.png">
+<img id="BluePaperMan" style="display:none" src="images/rpns/bpfn.png">
+<img id="RedPaperManDamaged" style="display:none" src="images/rpns/rpsn.png">
+<img id="BluePaperManDamaged" style="display:none" src="images/rpns/bpsn.png">
+<img id="RedRockMan" style="display:none" src="images/rpns/rrfn.png">
+<img id="BlueRockMan" style="display:none" src="images/rpns/brfn.png">
+<img id="RedRockManDamaged" style="display:none" src="images/rpns/rrsn.png">
+<img id="BlueRockManDamaged" style="display:none" src="images/rpns/brsn.png">
+<img id="RedScissorsMan" style="display:none" src="images/rpns/rsfn.png">
+<img id="BlueScissorsMan" style="display:none" src="images/rpns/bsfn.png">
+<img id="RedScissorsManDamaged" style="display:none" src="images/rpns/rssn.png">
+<img id="BlueScissorsManDamaged" style="display:none" src="images/rpns/bssn.png">
+<img id="RedPaperQueen" style="display:none" src="images/rpns/rpfp.png">
+<img id="BluePaperQueen" style="display:none" src="images/rpns/bpfp.png">
+<img id="RedPaperQueenDamaged" style="display:none" src="images/rpns/rpsp.png">
+<img id="BluePaperQueenDamaged" style="display:none" src="images/rpns/bpsp.png">
+<img id="RedRockQueen" style="display:none" src="images/rpns/rrfp.png">
+<img id="BlueRockQueen" style="display:none" src="images/rpns/brfp.png">
+<img id="RedRockQueenDamaged" style="display:none" src="images/rpns/rrsp.png">
+<img id="BlueRockQueenDamaged" style="display:none" src="images/rpns/brsp.png">
+<img id="RedScissorsQueen" style="display:none" src="images/rpns/rsfp.png">
+<img id="BlueScissorsQueen" style="display:none" src="images/rpns/bsfp.png">
+<img id="RedScissorsQueenDamaged" style="display:none" src="images/rpns/rssp.png">
+<img id="BlueScissorsQueenDamaged" style="display:none" src="images/rpns/bssp.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) Oleg Makarenko
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="rpns.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="775" height="775" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/rpns-extension.js"></script>
+<script src="scripts/rpns.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+(define promote (
+  (add Man)
+))
+
+(define jump (
+   (verify friend?)
+   (verify (not-in-zone? queen))
+   $1 (verify enemy?)
+   (verify (piece? Man))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? queen)
+       (add-partial cont-type)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define shift (
+   (verify friend?)
+   (verify (not-in-zone? queen))
+   $1 (verify empty?)
+   add
+))
+
+(define long-shift (
+   (verify friend?)
+   (verify (in-zone? queen))
+   $1 (while empty?
+       (verify (not-in-zone? queen))
+       add $1
+   )
+))
+
+(define long-jump (
+   (verify friend?)
+   (verify (in-zone? queen))
+   $1 (while empty? (verify (not-in-zone? queen)) $1)
+   (verify (not-in-zone? queen))
+   (verify (piece? Man))
+   (verify enemy?) 
+   $1 (while empty?
+       (verify (not-in-zone? queen))
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define cont (
+   $1 (while empty? 
+       (verify (not-in-zone? queen))
+       $1 (verify not-last-from?)
+   )
+   (verify (piece? Man))
+   (verify enemy?) 
+   (verify (not-in-zone? queen))
+   $1 (while empty?
+       (verify (not-in-zone? queen))
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(game
+  (title "Dragon Eyes")
+
+  (players Gold Silver)
+  (turn-order Gold Silver)
+  (move-priorities jump-type init-type normal-type)
+
+  (board
+     (image "images/dragon-eyes/board.bmp")
+     (grid
+         (start-rectangle 22 -173 89 -106)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/k/l" (66 38)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 76)) ; ranks
+         )         
+         (directions (n 0 -1) (s 0 1) (nw -1 0) (se 1 0) (ne 1 -1) (sw -1 1))
+     )
+     (kill-positions a7 a8 a9 a10 a11 b8 b9 b10 b11 c9 c10 c11 d10 d11 e11 g1 h1 h2 i1 i2 i3 k1 k2 k3 k4 l1 l2 l3 l4 l5)
+     (zone (name queen) (players Gold Silver)
+           (positions f11 a6 l11 f6 a1 l6 f1)
+     )
+  )
+
+  (piece
+     (name Init)
+     (image Gold "images/dragon-eyes/silver.bmp"
+            Silver "images/dragon-eyes/silver.bmp")
+     (moves
+         (move-type init-type)
+         (promote)
+     )
+  )
+  (piece
+     (name Man)
+     (image Gold "images/dragon-eyes/gold.bmp"
+            Silver "images/dragon-eyes/white.bmp")
+     (moves
+         (move-type cont-type)
+         (cont n) (cont nw) (cont ne)
+         (cont s) (cont sw) (cont se)
+         (move-type jump-type)
+         (jump n) (jump nw) (jump ne)
+         (jump s) (jump sw) (jump se)
+         (long-jump n) (long-jump nw) (long-jump ne)
+         (long-jump s) (long-jump sw) (long-jump se)
+         (move-type normal-type)
+         (shift n) (shift nw) (shift ne)
+         (shift s) (shift sw) (shift se)
+         (long-shift n) (long-shift nw) (long-shift ne)
+         (long-shift s) (long-shift sw) (long-shift se)
+     )
+  )
+)

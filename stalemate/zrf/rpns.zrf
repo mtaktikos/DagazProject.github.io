@@ -1,0 +1,203 @@
+(define step (
+  $1 (verify not-friend?)
+  (add $2)
+))
+
+(game
+  (title "RPnS")
+
+  (players Red Blue)
+  (turn-order Red Blue)
+
+  (board
+     (image "images/rpns/board.bmp")
+     (grid
+         (start-rectangle 124 95 254 208)
+         (dimensions
+           ("a/b/c/d" (159 0)) ; files
+           ("4/2" (0 318)) ; ranks
+         )
+     )
+     (grid
+         (start-rectangle 44 253 174 366)
+         (dimensions
+           ("a/b/c/d" (159 0)) ; files
+           ("3/1" (0 318)) ; ranks
+         )
+     )
+     (links e  (a4 b4) (b4 c4) (c4 d4) (a3 b3) (b3 c3) (c3 d3) (a2 b2) (b2 c2) (c2 d2) (a1 b1) (b1 c1) (c1 d1))
+     (links w  (b4 a4) (c4 b4) (d4 c4) (b3 a3) (c3 b3) (d3 c3) (b2 a2) (c2 b2) (d2 c2) (b1 a1) (c1 b1) (d1 c1))
+     (links ne (a3 a4) (b3 b4) (c3 c4) (d3 d4) (a2 b3) (b2 c3) (c2 d3) (a1 a2) (b1 b2) (c1 c2) (d1 d2))
+     (links sw (a4 a3) (b4 b3) (c4 c3) (d4 d3) (b3 a2) (c3 b2) (d3 c2) (a2 a1) (b2 b1) (c2 c1) (d2 d1))
+     (links nw (b3 a4) (c3 b4) (d3 c4) (a2 a3) (b2 b3) (c2 c3) (d2 d3) (b1 a2) (c1 b2) (d1 c2))
+     (links se (a4 b3) (b4 c3) (c4 d3) (a3 a2) (b3 b2) (c3 c2) (d3 d2) (a2 b1) (b2 c1) (c2 d1))
+  )
+
+  (piece
+     (name PaperKing)
+     (image Red "images/rpns/rpfm.bmp"
+            Blue "images/rpns/bpfm.bmp")
+     (moves
+         (step nw RockKing) (step sw RockKing) (step w RockKing)
+         (step ne RockKing) (step se RockKing) (step e RockKing)
+     )
+  )
+  (piece
+     (name PaperKingDamaged)
+     (image Red "images/rpns/rpsm.bmp"
+            Blue "images/rpns/bpsm.bmp")
+     (moves
+         (step nw RockKingDamaged) (step sw RockKingDamaged) (step w RockKingDamaged)
+         (step ne RockKingDamaged) (step se RockKingDamaged) (step e RockKingDamaged)
+     )
+  )
+  (piece
+     (name RockKing)
+     (image Red "images/rpns/rrfm.bmp"
+            Blue "images/rpns/brfm.bmp")
+     (moves
+         (step nw ScissorsKing) (step sw ScissorsKing) (step w ScissorsKing)
+         (step ne ScissorsKing) (step se ScissorsKing) (step e ScissorsKing)
+     )
+  )
+  (piece
+     (name RockKingDamaged)
+     (image Red "images/rpns/rrsm.bmp"
+            Blue "images/rpns/brsm.bmp")
+     (moves
+         (step nw ScissorsKingDamaged) (step sw ScissorsKingDamaged) (step w ScissorsKingDamaged)
+         (step ne ScissorsKingDamaged) (step se ScissorsKingDamaged) (step e ScissorsKingDamaged)
+     )
+  )
+  (piece
+     (name ScissorsKing)
+     (image Red "images/rpns/rsfm.bmp"
+            Blue "images/rpns/bsfm.bmp")
+     (moves
+         (step nw PaperKing) (step sw PaperKing) (step w PaperKing)
+         (step ne PaperKing) (step se PaperKing) (step e PaperKing)
+     )
+  )
+  (piece
+     (name ScissorsKingDamaged)
+     (image Red "images/rpns/rssm.bmp"
+            Blue "images/rpns/bssm.bmp")
+     (moves
+         (step nw PaperKingDamaged) (step sw PaperKingDamaged) (step w PaperKingDamaged)
+         (step ne PaperKingDamaged) (step se PaperKingDamaged) (step e PaperKingDamaged)
+     )
+  )
+  (piece
+     (name PaperMan)
+     (image Red "images/rpns/rpfn.bmp"
+            Blue "images/rpns/bpfn.bmp")
+     (moves
+         (step nw RockMan) (step sw RockMan) (step w RockMan)
+         (step ne RockMan) (step se RockMan) (step e RockMan)
+     )
+  )
+  (piece
+     (name PaperManDamaged)
+     (image Red "images/rpns/rpsn.bmp"
+            Blue "images/rpns/bpsn.bmp")
+     (moves
+         (step nw RockManDamaged) (step sw RockManDamaged) (step w RockManDamaged)
+         (step ne RockManDamaged) (step se RockManDamaged) (step e RockManDamaged)
+     )
+  )
+  (piece
+     (name RockMan)
+     (image Red "images/rpns/rrfn.bmp"
+            Blue "images/rpns/brfn.bmp")
+     (moves
+         (step nw ScissorsMan) (step sw ScissorsMan) (step w ScissorsMan)
+         (step ne ScissorsMan) (step se ScissorsMan) (step e ScissorsMan)
+     )
+  )
+  (piece
+     (name RockManDamaged)
+     (image Red "images/rpns/rrsn.bmp"
+            Blue "images/rpns/brsn.bmp")
+     (moves
+         (step nw ScissorsManDamaged) (step sw ScissorsManDamaged) (step w ScissorsManDamaged)
+         (step ne ScissorsManDamaged) (step se ScissorsManDamaged) (step e ScissorsManDamaged)
+     )
+  )
+  (piece
+     (name ScissorsMan)
+     (image Red "images/rpns/rsfn.bmp"
+            Blue "images/rpns/bsfn.bmp")
+     (moves
+         (step nw PaperMan) (step sw PaperMan) (step w PaperMan)
+         (step ne PaperMan) (step se PaperMan) (step e PaperMan)
+     )
+  )
+  (piece
+     (name ScissorsManDamaged)
+     (image Red "images/rpns/rssn.bmp"
+            Blue "images/rpns/bssn.bmp")
+     (moves
+         (step nw PaperManDamaged) (step sw PaperManDamaged) (step w PaperManDamaged)
+         (step ne PaperManDamaged) (step se PaperManDamaged) (step e PaperManDamaged)
+     )
+  )
+  (piece
+     (name PaperQueen)
+     (image Red "images/rpns/rpfp.bmp"
+            Blue "images/rpns/bpfp.bmp")
+     (moves
+         (step nw RockQueen) (step sw RockQueen) (step w RockQueen)
+         (step ne RockQueen) (step se RockQueen) (step e RockQueen)
+     )
+  )
+  (piece
+     (name PaperQueenDamaged)
+     (image Red "images/rpns/rpsp.bmp"
+            Blue "images/rpns/bpsp.bmp")
+     (moves
+         (step nw RockQueenDamaged) (step sw RockQueenDamaged) (step w RockQueenDamaged)
+         (step ne RockQueenDamaged) (step se RockQueenDamaged) (step e RockQueenDamaged)
+     )
+  )
+  (piece
+     (name RockQueen)
+     (image Red "images/rpns/rrfp.bmp"
+            Blue "images/rpns/brfp.bmp")
+     (moves
+         (step nw ScissorsQueen) (step sw ScissorsQueen) (step w ScissorsQueen)
+         (step ne ScissorsQueen) (step se ScissorsQueen) (step e ScissorsQueen)
+     )
+  )
+  (piece
+     (name RockQueenDamaged)
+     (image Red "images/rpns/rrsp.bmp"
+            Blue "images/rpns/brsp.bmp")
+     (moves
+         (step nw ScissorsQueenDamaged) (step sw ScissorsQueenDamaged) (step w ScissorsQueenDamaged)
+         (step ne ScissorsQueenDamaged) (step se ScissorsQueenDamaged) (step e ScissorsQueenDamaged)
+     )
+  )
+  (piece
+     (name ScissorsQueen)
+     (image Red "images/rpns/rsfp.bmp"
+            Blue "images/rpns/bsfp.bmp")
+     (moves
+         (step nw PaperQueen) (step sw PaperQueen) (step w PaperQueen)
+         (step ne PaperQueen) (step se PaperQueen) (step e PaperQueen)
+     )
+  )
+  (piece
+     (name ScissorsQueenDamaged)
+     (image Red "images/rpns/rssp.bmp"
+            Blue "images/rpns/bssp.bmp")
+     (moves
+         (step nw PaperQueenDamaged) (step sw PaperQueenDamaged) (step w PaperQueenDamaged)
+         (step ne PaperQueenDamaged) (step se PaperQueenDamaged) (step e PaperQueenDamaged)
+     )
+  )
+
+  (board-setup
+     (Red (RockMan a1) (RockMan d1) (ScissorsKing b1) (PaperQueen c1))
+     (Blue (RockMan d4) (RockMan a4) (ScissorsKing c4) (PaperQueen b4))
+  )
+)

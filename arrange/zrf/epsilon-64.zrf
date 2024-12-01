@@ -1,0 +1,51 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Epsilon 64")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/epsilon/8x8.bmp")
+     (grid
+         (start-rectangle 99 32 168 101)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (71 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 71)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (grid
+         (start-rectangle 1 0 70 69)
+         (dimensions
+           ("X/Y" (695 66)) ; files
+           ("8/7/6/5/4/3/2/1" (0 71)) ; ranks
+         )
+     )
+  )
+
+  (piece
+     (name  Stone)
+     (image White "images/epsilon/white.bmp"
+            Black "images/epsilon/black.bmp")
+     (moves
+        (move-type normal-type)
+        (step nw) (step ne)
+        (step sw) (step se)
+        (step e)  (step w) 
+        (step n)  (step s) 
+     )
+  )
+
+  (board-setup
+     (White (Stone Y1 Y2 Y3 Y4 Y5 Y6 Y7))
+     (Black (Stone X8 X7 X6 X5 X4 X3 X2))
+  )
+)
