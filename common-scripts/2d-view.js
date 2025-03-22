@@ -103,7 +103,7 @@ View2D.prototype.defPosition = function(name, x, y, dx, dy) {
 }
 
 View2D.prototype.defBoard = function(img, x, y, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {
      h: document.getElementById(img),
      x: x ? x : 0,
@@ -116,6 +116,8 @@ View2D.prototype.defBoard = function(img, x, y, selector) {
   this.res.push(board);
   this.board.push(board);
 }
+
+View2D.prototype.defControl = function(imgs, hint, isVisible) {}
 
 View2D.prototype.defPiece = function(img, name, help, glyph) {
   var piece = {
